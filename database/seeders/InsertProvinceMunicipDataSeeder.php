@@ -133,8 +133,9 @@ class InsertProvinceMunicipDataSeeder extends Seeder
 
             foreach ($dataObject as $data) {
                 $provincia = Province::where("api_code", $data->parent_code)->first();
+
                 $municipio = Municipio::where("api_code", $data->code)->first();
-                if (empty($provincia->id) || !empty($municipio->id)) {
+                if (empty($provincia->id)) {
                     continue;
                 }
 

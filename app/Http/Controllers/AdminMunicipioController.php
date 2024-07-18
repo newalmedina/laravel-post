@@ -156,7 +156,6 @@ class AdminMunicipioController extends Controller
             'provinces.name as provincia',
 
         ])->leftJoin("provinces", "municipios.province_id", "provinces.id");
-        dd(count($query->get()));
         $this->addFilter($query);
 
         $table = DataTables::of($query);
