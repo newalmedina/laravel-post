@@ -81,12 +81,15 @@ class InsertProvinceMunicipDataSeeder extends Seeder
 
     private function insertCountry()
     {       
+        $country = Country::where("slug",Str::slug("ES"))->first();
+        if(empty($country->id)){
+            $country = new Country();
+            $country->name = "España";
+            $country->slug =  Str::slug("ES");
+            $country->active = 1;
+            $country->save();
 
-        $country = new Country();
-        $country->name = "España";
-        $country->slug =  Str::slug("ES");
-        $country->active = 1;
-        $country->save();
+        }
         return $country->slug;
            
     }
@@ -141,5 +144,5 @@ class InsertProvinceMunicipDataSeeder extends Seeder
             }
         }
     }
-    
+
 }
