@@ -7,7 +7,7 @@ return [
     'list' => 'Listado categorías',
     'new' => 'Nueva categoría',
     'edit' => 'Editar categoría',
-    '' => '',
+    'show' => 'Visualizar categoría',
     '' => '',
     '' => '',
     'fields' => [

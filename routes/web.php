@@ -1,32 +1,19 @@
 <?php
 
-use App\Http\Controllers\AdminCenterController;
-use App\Http\Controllers\AdminClinicPersonalController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\AdminDiagnosiController;
-use App\Http\Controllers\AdminInsuranceCarrierController;
-use App\Http\Controllers\AdminMedicalSpecializationController;
+use App\Http\Controllers\AdminDashboardController;;
+
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminMunicipioController;
-use App\Http\Controllers\AdminPatientController;
-use App\Http\Controllers\AdminPatientMedicalStudieController;
-use App\Http\Controllers\AdminPatientMedicineController;
-use App\Http\Controllers\AdminPatientMonitoringController;
 use App\Http\Controllers\AdminProvinceController;
 use App\Http\Controllers\AdminRoleController;
-use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\AdminSettingsController;
 use App\Http\Controllers\AdminSuplantacionController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminUserProfileController;
-use App\Http\Controllers\AdminAppointmentController;
-use App\Http\Controllers\AdminAppointmentsController;
-use App\Http\Controllers\AdminAppointmentsDeletedController;
 use App\Http\Controllers\Auth\FrontRegisterUserController;
-use App\Http\Controllers\AdminCalendarController;
 use App\Http\Controllers\FrontChangePasswordController;
 use App\Http\Controllers\FrontSettingsController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Middleware\AvailableSite;
 use App\Jobs\EnviarCorreoJob;
@@ -166,7 +153,7 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'verified', 'ch
     Route::get('/users/personal-info/{id}', [AdminUserController::class, 'personalInfo']);
     Route::get('/users/personal-info/{id}/show', [AdminUserController::class, 'ShowPersonalInfo']);
     Route::post('/users/personal-info/store/{id}', [AdminUserController::class, 'updatePersonalInfo'])->name("admin.users.updatePersonalInfo");
-   
+
     //admin municipios
 
     Route::get('/municipios', [AdminMunicipioController::class, 'index']);
@@ -182,7 +169,23 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'verified', 'ch
     Route::post('/municipios/save-filter', [AdminMunicipioController::class, 'saveFilter'])->name('admin.municipios.saveFilter');
     Route::post('/municipios/list', [AdminMunicipioController::class, 'getData'])->name('admin.municipios.getData');
     Route::delete('/municipios/{id}', [AdminMunicipioController::class, 'destroy'])->name('admin.municipios.destroy');
- 
+
+    //admin products
+
+    Route::get('/products', [AdminProductsController::class, 'index']);
+    Route::get('/products/create', [AdminProductsController::class, 'create'])->name('admin.products.create');
+    Route::get('/products/{id}/edit', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
+    Route::get('/products/{id}/show', [AdminProductsController::class, 'show'])->name('admin.products.show');
+    Route::get('/products/change-state/{id}', [AdminProductsController::class, 'changeState'])->name('admin.products.changeState');
+    Route::get('/products/export-excel', [AdminProductsController::class, 'exportExcel'])->name("admin.products.exportExcel");
+    Route::get('/products/remove-filter', [AdminProductsController::class, 'removeFilter'])->name('admin.products.removeFilter');
+    Route::patch('/products/{id}', [AdminProductsController::class, 'update'])->name('admin.products.update');
+    Route::post('/products/save-filter', [AdminProductsController::class, 'saveFilter'])->name('admin.products.saveFilter');
+    Route::post('/products', [AdminProductsController::class, 'store'])->name('admin.products.store');
+    Route::post('/products/save-filter', [AdminProductsController::class, 'saveFilter'])->name('admin.products.saveFilter');
+    Route::post('/products/list', [AdminProductsController::class, 'getData'])->name('admin.products.getData');
+    Route::delete('/products/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
+
     //admin provincias
     Route::get('/provinces', [AdminProvinceController::class, 'index']);
     Route::get('/provinces/create', [AdminProvinceController::class, 'create'])->name('admin.provinces.create');
@@ -195,23 +198,20 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'verified', 'ch
     Route::post('/provinces/save-filter', [AdminProvinceController::class, 'saveFilter'])->name('admin.provinces.saveFilter');
     Route::post('/provinces/list', [AdminProvinceController::class, 'getData'])->name('admin.provinces.getData');
     Route::delete('/provinces/{id}', [AdminProvinceController::class, 'destroy'])->name('admin.provinces.destroy');
-   
+
     //admin categories
 
-   Route::get('/categories', [AdminCategoryController::class, 'index']);
-   Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
-   Route::get('/categories/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
-   Route::get('/categories/{id}/show', [AdminCategoryController::class, 'show'])->name('admin.categories.show');
-   Route::get('/categories/change-state/{id}', [AdminCategoryController::class, 'changeState'])->name('admin.categories.changeState');
-   Route::get('/categories/export-excel', [AdminCategoryController::class, 'exportExcel'])->name("admin.categories.exportExcel");
-   Route::get('/categories/remove-filter', [AdminCategoryController::class, 'removeFilter'])->name('admin.categories.removeFilter');
-   Route::patch('/categories/{id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
-   Route::post('/categories/save-filter', [AdminCategoryController::class, 'saveFilter'])->name('admin.categories.saveFilter');
-   Route::post('/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
-   Route::post('/categories/save-filter', [AdminCategoryController::class, 'saveFilter'])->name('admin.categories.saveFilter');
-   Route::post('/categories/list', [AdminCategoryController::class, 'getData'])->name('admin.categories.getData');
-   Route::delete('/categories/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
-
-  
-
+    Route::get('/categories', [AdminCategoryController::class, 'index']);
+    Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
+    Route::get('/categories/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::get('/categories/{id}/show', [AdminCategoryController::class, 'show'])->name('admin.categories.show');
+    Route::get('/categories/change-state/{id}', [AdminCategoryController::class, 'changeState'])->name('admin.categories.changeState');
+    Route::get('/categories/export-excel', [AdminCategoryController::class, 'exportExcel'])->name("admin.categories.exportExcel");
+    Route::get('/categories/remove-filter', [AdminCategoryController::class, 'removeFilter'])->name('admin.categories.removeFilter');
+    Route::patch('/categories/{id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+    Route::post('/categories/save-filter', [AdminCategoryController::class, 'saveFilter'])->name('admin.categories.saveFilter');
+    Route::post('/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::post('/categories/save-filter', [AdminCategoryController::class, 'saveFilter'])->name('admin.categories.saveFilter');
+    Route::post('/categories/list', [AdminCategoryController::class, 'getData'])->name('admin.categories.getData');
+    Route::delete('/categories/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
 });

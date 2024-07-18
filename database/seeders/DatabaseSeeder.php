@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GeneralSettingSeeders::class);
         $this->call(InsertProvinceMunicipDataSeeder::class);
         $this->call(AdmincategoriesPremissionSeeder::class);
-      
+        $this->call(AdminProductsPremissionSeeder::class);
     }
 }

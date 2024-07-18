@@ -64,7 +64,7 @@ $disabled= isset($disabled)?$disabled : null;
                                  
                                     <div class="form-group">
                                         <label class='text-primary' for="name"> {{ trans('categories/admin_lang.fields.description') }}  </label>
-                                        <textarea name="description" class="form-control textarea" id="description" cols="30" rows="10" placeholder="{{ trans('categories/admin_lang.fields.description_helper') }}">{{ $category->description }}</textarea>
+                                        <textarea  {{ $disabled }}  name="description" class="form-control textarea" id="description" cols="30" rows="10" placeholder="{{ trans('categories/admin_lang.fields.description_helper') }}">{{ $category->description }}</textarea>
                                     </div>
                                 </div>          
                             </div>                           

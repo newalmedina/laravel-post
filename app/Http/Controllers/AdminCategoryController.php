@@ -17,7 +17,6 @@ class AdminCategoryController extends Controller
 
     public function __construct()
     {
-        
     }
 
     public function index()
@@ -39,7 +38,7 @@ class AdminCategoryController extends Controller
             app()->abort(403);
         }
         $pageTitle = trans('categories/admin_lang.new');
-     
+
         $title = trans('categories/admin_lang.list');
         $category = new Category();
 
@@ -164,18 +163,18 @@ class AdminCategoryController extends Controller
         $table->editColumn('actions', function ($data) {
             $actions = '';
             if (auth()->user()->isAbleTo("admin-categories-read")) {
-                $actions .= '<a  class="btn btn-info btn-xs" data-bs-content="' .trans('general/admin_lang.show') . '" data-bs-placement="left" data-bs-toggle="popover" data-bs-content="' . trans('general/front_lang.show') . '" data-bs-placement="right" 
+                $actions .= '<a  class="btn btn-info btn-xs" data-bs-content="' . trans('general/admin_lang.show') . '" data-bs-placement="left" data-bs-toggle="popover" data-bs-content="' . trans('general/front_lang.show') . '" data-bs-placement="right" 
                 data-bs-toggle="popover" href="' . route('admin.categories.show', $data->id) . '" ><i
                 class="fa fa-eye fa-lg"></i></a> ';
             }
             if (auth()->user()->isAbleTo("admin-categories-update")) {
-                $actions .= '<a  class="btn btn-primary btn-xs" data-bs-content="' .trans('general/admin_lang.edit') . '" data-bs-placement="left" data-bs-toggle="popover" href="' . route('admin.categories.edit', $data->id) . '" ><i
+                $actions .= '<a  class="btn btn-primary btn-xs" data-bs-content="' . trans('general/admin_lang.edit') . '" data-bs-placement="left" data-bs-toggle="popover" href="' . route('admin.categories.edit', $data->id) . '" ><i
                 class="fa fa-marker fa-lg"></i></a> ';
             }
 
             if (auth()->user()->isAbleTo("admin-categories-delete")) {
 
-                $actions .= '<button class="btn btn-danger btn-xs" data-bs-content="' .trans('general/admin_lang.delete'). '" data-bs-placement="left" data-bs-toggle="popover" onclick="javascript:deleteElement(\'' .
+                $actions .= '<button class="btn btn-danger btn-xs" data-bs-content="' . trans('general/admin_lang.delete') . '" data-bs-placement="left" data-bs-toggle="popover" onclick="javascript:deleteElement(\'' .
                     url('admin/categories/' . $data->id) . '\');" data-content="' .
                     trans('general/admin_lang.borrar') . '" data-placement="left" data-toggle="popover">
                         <i class="fa fa-trash" aria-hidden="true"></i></button>';
@@ -189,8 +188,8 @@ class AdminCategoryController extends Controller
         return $table->make();
     }
 
-    
-   
+
+
     public function destroy($id)
     {
         // Si no tiene permisos para modificar lo echamos
@@ -250,5 +249,4 @@ class AdminCategoryController extends Controller
         $category->active = $request->input('active', 0);
         $category->save();
     }
-
 }
