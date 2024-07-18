@@ -21,10 +21,10 @@ class GeneralSettingSeeders extends Seeder
     {
 
         $generalSettings = [
-            "site_name" => "Medical System",
+            "site_name" => "Laravel Post",
             "image" => null,
             "phone" => "674987708",
-            "email" => "medical@correo.com",
+            "email" => "laravel-post@correo.com",
             "address" => "Invivienda 6",
             "province_id" => null,
             "municipio_id" => null,
@@ -50,8 +50,8 @@ class GeneralSettingSeeders extends Seeder
             "MAIL_USERNAME" => "13f5d54d0beaee",
             "MAIL_PASSWORD" => "279c6344154db8",
             "MAIL_ENCRYPTION" => "tls",
-            "MAIL_FROM_ADDRESS" => "medical@correo.com",
-            "MAIL_FROM_NAME" => "Medical System",
+            "MAIL_FROM_ADDRESS" => "laravel-post@correo.com",
+            "MAIL_FROM_NAME" => "Laravel Post",
         ];
 
         foreach ($smtpSettings as  $key => $value) {

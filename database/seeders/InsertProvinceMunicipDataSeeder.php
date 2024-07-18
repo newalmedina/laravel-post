@@ -24,6 +24,8 @@ class InsertProvinceMunicipDataSeeder extends Seeder
         DB::beginTransaction();
         try {
 
+            $this->insertCountry();
+
             $this->insertProvince();
             $this->insertMunicipio();
 
@@ -77,6 +79,17 @@ class InsertProvinceMunicipDataSeeder extends Seeder
         }
     }
 
+    private function insertCountry()
+    {       
+
+        $country = new Country();
+        $country->name = "España";
+        $country->slug =  Str::slug("ES");
+        $country->active = 1;
+        $country->save();
+        return $country->slug;
+           
+    }
     private function insertProvince()
     {
         $jsonPath = public_path('json/provincias.json');
@@ -102,6 +115,7 @@ class InsertProvinceMunicipDataSeeder extends Seeder
             }
         }
     }
+   
     private function insertMunicipio()
     {
         $jsonPath = public_path('json/municipios.json');
@@ -127,4 +141,5 @@ class InsertProvinceMunicipDataSeeder extends Seeder
             }
         }
     }
+    
 }
