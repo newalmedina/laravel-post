@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
 
         $user->email = "nmedina@gmail.com";
         $user->password_changed_at =  Carbon::now();
-        $user->password = Hash::make("Secret15*");
+        $user->password = Hash::make("Secret15");
 
         $user->email_verified_at = Carbon::now();
         $user->active = true;
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         $userProfile->last_name = "medina";
         // $userProfile->province_id = 1;
         // $userProfile->municipio_id = 1;
-       
+
         $userProfile->gender = 'male';
         $userProfile->user_lang = 'es';
 
