@@ -106,6 +106,7 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'verified', 'ch
 
     Route::get('/settings-smtp', [AdminSettingsController::class, 'indexSmtp'])->name("admin.settings.smtp");
     Route::patch('/settings-smtp', [AdminSettingsController::class, 'updateSmtp'])->name("admin.settings.smtp-update");
+    Route::post('/settings-smtp/send-test-mail', [AdminSettingsController::class, 'sendMailTest'])->name("admin.settings.send-mail-test");
     //Admin Profile
     Route::get('/profile', [AdminUserProfileController::class, 'edit']);
 

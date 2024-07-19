@@ -51,6 +51,11 @@ class AdminSettingsPremissionSeeder  extends BaseSeeder
                 'name' => Str::slug('admin-settings-smtp-show'),
                 'description' => 'Configuración (Email - SMTP) - ver'
             ],
+            [
+                'display_name' => 'Configuración (Email - SMTP) - Enviar mail de prueba',
+                'name' => Str::slug('admin-settings-smtp-send-test-mail'),
+                'description' => 'Configuración (Email - SMTP) - Enviar mail de prueba'
+            ],
 
         ];
         $MenuChild = $this->insertPermissions($permissions, $this->childAdmin, $this->a_permission_admin);

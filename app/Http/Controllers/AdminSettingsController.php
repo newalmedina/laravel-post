@@ -9,7 +9,10 @@ use App\Models\Province;
 use App\Models\Setting;
 use App\Services\SettingsServices;
 use App\Services\StoragePathWork;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+
 
 class AdminSettingsController extends Controller
 {
@@ -156,5 +159,25 @@ class AdminSettingsController extends Controller
         }
 
         return redirect()->to('/admin/settings-smtp')->with('success', trans('general/admin_lang.save_ok'));
+    }
+    public function sendMailTest(Request $request)
+    {
+        if (!auth()->user()->isAbleTo('admin-settings-smtp-send-test-mail')) {
+            app()->abort(403);
+        }
+
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $email = $request->input('email');
+        $setConfiguration = SettingsServices::setSmtpConfiguration();
+
+        Mail::raw('Este es un correo de prueba.', function ($message) use ($email) {
+            $message->to($email)
+                ->subject('Correo de Prueba');
+        });
+
+        return redirect()->to('/admin/settings-smtp')->with('success', "Email enviado correctamente");
     }
 }

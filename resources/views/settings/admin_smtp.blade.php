@@ -110,13 +110,47 @@ $disabled= isset($disabled)?$disabled : null;
                 <div class="col-12  d-flex justify-content-between">
 
                     <a href="{{ url('admin/settings') }}" class="btn btn-default">{{ trans('general/admin_lang.back') }}</a>
+                    @if ( Auth::user()->isAbleTo("admin-settings-smtp-send-test-mail") ) 
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#enviarMailModal">
+                            Enviar mail de prueba
+                        </button>
+                    @endif
                     @if ( !  $disabledForm )
-                    <button type="submit" class="btn btn-primary">{{ trans('general/admin_lang.save') }}</button>   
+                    <!-- Botón que abre el modal -->
+                        <button type="submit" class="btn btn-primary">{{ trans('general/admin_lang.save') }}</button>   
                         
                     @endif
                 </div>
             </div>
         </form>
+  
+
+    <!-- Modal -->
+    <div class="modal fade" id="enviarMailModal" tabindex="-1" aria-labelledby="enviarMailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="enviarMailModalLabel">Enviar Mail de Prueba</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="enviarMailForm" method="POST" action='{{route("admin.settings.send-mail-test")}}'>
+                        @csrf 
+                        @method('post')
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" form="enviarMailForm">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 </div>
 @endsection
