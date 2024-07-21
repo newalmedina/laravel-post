@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 
 class PermissionSeeder extends Seeder
 {
+
+    
     /**
      * Run the database seeds.
      *
